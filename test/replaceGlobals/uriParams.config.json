@@ -1,0 +1,18 @@
+{
+  "modules": {
+    "jquery.sap.script": {
+      "jQuery.sap.getUriParameters": {
+		  "functionName": "fromURL",
+		  "newModulePath": "sap/base/util/UriParameters",
+		  "newVariableName": "UriParameters",
+		  "replacer": "UriParameters",
+		  "functionParameter": "window.location.href",
+		  "version": "^1.68.0"
+      }
+    }
+  },
+  "replacers": {
+    "UriParameters": "tasks/helpers/replacers/UriParameters.js"
+  },
+  "excludes": []
+}

@@ -1,0 +1,136 @@
+{
+  "name": "@ui5/migration",
+  "version": "0.3.0",
+  "description": "Tooling to support the migration of UI5 projects by adapting code for new UI5 framework versions",
+  "author": "SAP SE (https://www.sap.com)",
+  "license": "Apache-2.0",
+  "keywords": [
+    "openui5",
+    "sapui5",
+    "ui5",
+    "migration",
+    "tool"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "build": "rimraf js && tsc -p .",
+    "build-watch": "rimraf js && tsc -w -p .",
+    "lint": "gts lint",
+    "test": "npm run lint && npm run coverage",
+    "test-azure": "npm run lint && npm run unit && npm run coverage-junit",
+    "coverage": "nyc npm run unit",
+    "coverage-junit": "nyc --reporter=text --reporter=text-summary --reporter=cobertura npm run unit-junit",
+    "unit": "mocha -r ts-node/register -r source-map-support/register ./test/**/*Test.ts ./test/**/*/**Test.ts ./test/*Test.ts",
+    "unit-junit": "npm run unit -- --reporter mocha-junit-reporter",
+    "unit-watch": "npm run unit -- -w",
+    "clean": "gts clean",
+    "fix": "gts fix",
+    "preversion": "npm run build && npm test",
+    "version": "git-chglog --next-tag v$npm_package_version -o CHANGELOG.md && git add CHANGELOG.md",
+    "prepublishOnly": "git push --follow-tags",
+    "release-note": "git-chglog -c .chglog/release-config.yml v$npm_package_version"
+  },
+  "types": "typings/index.d.ts",
+  "files": [
+    "index.js",
+    "CONTRIBUTING.md",
+    "npm-shrinkwrap.json",
+    "bin/**",
+    "defaultConfig/**",
+    "js/src/**/*.js",
+    "LICENSES/**",
+    ".reuse/**"
+  ],
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "exclude": [
+      "js/**/*.d.ts",
+      "typings/*.d.ts",
+      "docs/**",
+      "jsdocs/**",
+      "coverage/**",
+      "test/**",
+      "bin/**",
+      "lib/lbt/**",
+      "util/**",
+      "src/cli.ts",
+      "index.js",
+      "js/src/cli.js",
+      ".prettierrc.js"
+    ],
+    "check-coverage": true,
+    "lines": 50,
+    "statements": 50,
+    "functions": 50,
+    "branches": 40,
+    "watermarks": {
+      "lines": [
+        60,
+        90
+      ],
+      "functions": [
+        60,
+        90
+      ],
+      "branches": [
+        50,
+        70
+      ],
+      "statements": [
+        60,
+        90
+      ]
+    },
+    "cache": true,
+    "all": true,
+    "report-dir": "./coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:SAP/ui5-migration.git"
+  },
+  "dependencies": {
+    "diff": "^5.1.0",
+    "esprima": "^4.0.1",
+    "globals": "^13.18.0",
+    "graceful-fs": "^4.2.10",
+    "ignore": "^5.2.0",
+    "json5": "^2.2.1",
+    "minimatch": "^5.1.0",
+    "recast": "^0.21.5",
+    "request": "^2.88.2",
+    "semver": "^7.3.8",
+    "yargs": "^17.6.2"
+  },
+  "bin": {
+    "ui5-migration": "./bin/cli.js"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@types/esprima": "^4.0.3",
+    "@types/estree": "1.0.0",
+    "@types/graceful-fs": "^4.1.5",
+    "@types/json5": "^2.2.0",
+    "@types/minimatch": "^3.0.5",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.11.9",
+    "@types/yargs": "^17.0.13",
+    "gts": "^3.1.1",
+    "mocha": "^10.1.0",
+    "mocha-junit-reporter": "^2.2.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
+    "sinon": "^14.0.2",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}

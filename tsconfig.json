@@ -1,0 +1,32 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "allowUnreachableCode": false,
+    "outDir": "js",
+    "sourceMap": true,
+    "target": "es2017",
+    "newLine": "lf",
+    "strict": false,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "typings",
+      "node_modules/@types"
+    ]
+  },
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "defaultConfig/*.json",
+    "typings/*.ts",
+    "src/*.ts",
+    "src/**/*.ts",
+    "test/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
